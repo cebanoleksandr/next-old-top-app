@@ -1,4 +1,7 @@
 import { API } from "@/api";
+import ProductsList from "@/components/business/top-page/ProductsList";
+import TopPageHeader from "@/components/business/top-page/TopPageHeader";
+import VacanciesBlock from "@/components/business/top-page/VacanciesBlock";
 import { withMainLayout } from "@/components/layouts/MainLayout/MainLayout";
 import { firstLevelMenu } from "@/helpers/helpers";
 import { MenuItem } from "@/interfaces/menu.interface";
@@ -6,24 +9,25 @@ import { TopLevelCategory, TopPageModal } from "@/interfaces/page.interface";
 import { ProductModel } from "@/interfaces/product.interface";
 import axios from "axios";
 import { GetStaticPropsContext } from "next";
-import { notFound } from "next/navigation";
+import { FC } from "react";
 
-const CoursePage = ({ menu, firstCategory, page, products }: CourseProps) => {
+interface TopPageProps extends Record<string, unknown> {
+  firstCategory: TopLevelCategory;
+  page: TopPageModal;
+  products: ProductModel[];
+}
+
+const TopPage: FC<TopPageProps> = ({ firstCategory, page, products }) => {
   return (
-    <div>
-      Course Page
-      <div>{page?.title}</div>
-      <div>{page?.alias}</div>
-      <div>
-        {products?.map(product => (
-          <div key={product._id}>{product.title}</div>
-        ))}
-      </div>
+    <div className="mt-10">
+      <TopPageHeader page={page} products={products} />
+      <ProductsList products={products} />
+      {firstCategory === TopLevelCategory.Courses && <VacanciesBlock page={page} />}
     </div>
   );
 }
 
-export default withMainLayout(CoursePage);
+export default withMainLayout(TopPage);
 
 export const getStaticPaths = async () => {
   let paths: string[] = [];
@@ -88,11 +92,4 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
       notFound: true
     }
   }
-}
-
-interface CourseProps extends Record<string, unknown> {
-  menu: MenuItem[];
-  firstCategory: TopLevelCategory;
-  page: TopPageModal;
-  products: ProductModel[];
 }

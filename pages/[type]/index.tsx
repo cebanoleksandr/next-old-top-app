@@ -7,6 +7,11 @@ import axios from "axios";
 import { GetStaticPropsContext } from "next";
 import { FC } from "react";
 
+interface TypeProps {
+  menu: MenuItem[];
+  firstCategory: TopLevelCategory;
+}
+
 const TypePage: FC<TypeProps> = ({ firstCategory }) => {
   return (
     <div>
@@ -47,11 +52,6 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
       firstCategory: firstCategoryItem.id,
     },
   };
-}
-
-type TypeProps = {
-  menu: MenuItem[];
-  firstCategory: TopLevelCategory;
 }
 
 export default withMainLayout(TypePage);
