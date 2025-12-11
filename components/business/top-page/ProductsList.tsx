@@ -8,7 +8,7 @@ interface IProps {
 
 const ProductsList: FC<IProps> = ({ products }) => {
   return (
-    <div>
+    <div className="mb-12">
       {products?.map(product => (
         <ProductItem key={product._id} product={product} />
       ))}

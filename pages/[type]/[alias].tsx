@@ -1,5 +1,7 @@
 import { API } from "@/api";
+import AdvantagesBlock from "@/components/business/top-page/AdvantagesBlock";
 import ProductsList from "@/components/business/top-page/ProductsList";
+import SkillsBlock from "@/components/business/top-page/SkillsBlock";
 import TopPageHeader from "@/components/business/top-page/TopPageHeader";
 import VacanciesBlock from "@/components/business/top-page/VacanciesBlock";
 import { withMainLayout } from "@/components/layouts/MainLayout/MainLayout";
@@ -23,6 +25,8 @@ const TopPage: FC<TopPageProps> = ({ firstCategory, page, products }) => {
       <TopPageHeader page={page} products={products} />
       <ProductsList products={products} />
       {firstCategory === TopLevelCategory.Courses && <VacanciesBlock page={page} />}
+      <AdvantagesBlock advantages={page.advantages} />
+      <SkillsBlock skills={page.tags} />
     </div>
   );
 }

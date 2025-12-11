@@ -6,6 +6,7 @@ import { FC } from "react";
 import star from "../../../public/icons/star.svg";
 import activeStar from "../../../public/icons/active-star.svg";
 import Image from "next/image";
+import { priceRu } from "@/helpers/helpers";
 
 interface IProps {
   page: TopPageModal;
@@ -13,7 +14,7 @@ interface IProps {
 
 const VacanciesBlock: FC<IProps> = ({ page }) => {
   return (
-    <div>
+    <div className="mb-12">
       <div className="flex items-baseline gap-2 mb-6">
         <Title tag="h2">Вакансии - {page.category}</Title>
         <Tag color="red" size="medium">hh.ru</Tag>
@@ -28,7 +29,7 @@ const VacanciesBlock: FC<IProps> = ({ page }) => {
         <Card className="flex flex-col lg:flex-row flex-1 p-3">
           <div className="flex flex-col items-center justify-center flex-1 border-b border-b-gray-300 lg:border-b-0 lg:border-r lg:border-r-gray-300">
             <div className="font-light text-[var(--black)] text-xl mb-3 pt-2">Начальный</div>
-            <div className="text-[var(--black)] font-bold text-2xl mb-3">{page.hh?.juniorSalary}</div>
+            <div className="text-[var(--black)] font-bold text-2xl mb-3">{priceRu(page.hh?.juniorSalary || 0)}</div>
             <div className="flex items-center gap-1 pb-2">
               <Image src={activeStar} alt="" />
               <Image src={star} alt="" />
@@ -38,7 +39,7 @@ const VacanciesBlock: FC<IProps> = ({ page }) => {
 
           <div className="flex flex-col items-center justify-center flex-1 border-b border-b-gray-300 lg:border-b-0 lg:border-r lg:border-r-gray-300">
             <div className="font-light text-[var(--black)] text-xl mb-3 pt-2">Средний</div>
-            <div className="text-[var(--black)] font-bold text-2xl mb-3">{page.hh?.middleSalary}</div>
+            <div className="text-[var(--black)] font-bold text-2xl mb-3">{priceRu(page.hh?.middleSalary || 0)}</div>
             <div className="flex items-center gap-1 pb-2">
               <Image src={activeStar} alt="" />
               <Image src={activeStar} alt="" />
@@ -48,7 +49,7 @@ const VacanciesBlock: FC<IProps> = ({ page }) => {
 
           <div className="flex flex-col items-center justify-center flex-1">
             <div className="font-light text-[var(--black)] text-xl mb-3 pt-2">Профессионал</div>
-            <div className="text-[var(--black)] font-bold text-2xl mb-3">{page.hh?.seniorSalary}</div>
+            <div className="text-[var(--black)] font-bold text-2xl mb-3">{priceRu(page.hh?.seniorSalary || 0)}</div>
             <div className="flex items-center gap-1 pb-2">
               <Image src={activeStar} alt="" />
               <Image src={activeStar} alt="" />
