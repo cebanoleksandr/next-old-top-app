@@ -2,7 +2,10 @@ import Tag from "@/components/UI/Tag";
 import Title from "@/components/UI/Title";
 import { TopPageModal } from "@/interfaces/page.interface";
 import { ProductModel } from "@/interfaces/product.interface";
+import { setSortAC, SortEnum } from "@/store/sortSlice";
 import { FC } from "react";
+import Sort from "../Sort";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 interface IProps {
   page: TopPageModal;
@@ -10,6 +13,13 @@ interface IProps {
 }
 
 const TopPageHeader: FC<IProps> = ({ page, products }) => {
+  const { sort } = useAppSelector(state => state.sort);
+  const dispatch = useAppDispatch();
+
+  const setSort = (sort: SortEnum) => {
+    dispatch(setSortAC({ sort }));
+  }
+
   return (
     <div className="flex items-baseline justify-between gap-3 mb-5">
       <div className="flex gap-2 items-baseline">
@@ -17,7 +27,7 @@ const TopPageHeader: FC<IProps> = ({ page, products }) => {
         <Tag color="gray" size="medium">{products.length}</Tag>
       </div>
       
-      <span>Сортировка</span>
+      <Sort sort={sort} setSort={setSort} />
     </div>
   )
 }

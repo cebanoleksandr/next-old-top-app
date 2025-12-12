@@ -26,11 +26,11 @@ export interface TopPageModal {
   _id: string;
   firstCategory: TopLevelCategory;
   secondCategory: string;
-  seoText: string;
+  seoText?: string;
   tagsTitle: string;
   tags: string[];
   category: string;
-  advantages: TopPageAdvantage[];
+  advantages?: TopPageAdvantage[];
   createdAt: Date;
   updatedAt: Date;
   hh?: HhData;

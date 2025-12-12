@@ -5,13 +5,16 @@ import SkillsBlock from "@/components/business/top-page/SkillsBlock";
 import TopPageHeader from "@/components/business/top-page/TopPageHeader";
 import VacanciesBlock from "@/components/business/top-page/VacanciesBlock";
 import { withMainLayout } from "@/components/layouts/MainLayout/MainLayout";
+import "./style.css";
 import { firstLevelMenu } from "@/helpers/helpers";
 import { MenuItem } from "@/interfaces/menu.interface";
 import { TopLevelCategory, TopPageModal } from "@/interfaces/page.interface";
 import { ProductModel } from "@/interfaces/product.interface";
 import axios from "axios";
 import { GetStaticPropsContext } from "next";
-import { FC } from "react";
+import { FC, useMemo } from "react";
+import { useAppSelector } from "@/store/hooks";
+import { SortEnum } from "@/store/sortSlice";
 
 interface TopPageProps extends Record<string, unknown> {
   firstCategory: TopLevelCategory;
@@ -20,13 +23,25 @@ interface TopPageProps extends Record<string, unknown> {
 }
 
 const TopPage: FC<TopPageProps> = ({ firstCategory, page, products }) => {
+  const { sort } = useAppSelector(state => state.sort);
+
+  const sortedProducts = useMemo(() => {
+    if (sort === SortEnum.Rating) {
+      return products.sort((a,b) => a.initialRating - b.initialRating);
+    }
+    return products.sort((a,b) => b.price - a.price);
+  }, [sort]);
+
   return (
     <div className="mt-10">
-      <TopPageHeader page={page} products={products} />
-      <ProductsList products={products} />
+      <TopPageHeader page={page} products={sortedProducts} />
+      <ProductsList products={sortedProducts} />
       {firstCategory === TopLevelCategory.Courses && <VacanciesBlock page={page} />}
-      <AdvantagesBlock advantages={page.advantages} />
-      <SkillsBlock skills={page.tags} />
+      {!!page.advantages && !!page.advantages.length && <AdvantagesBlock advantages={page.advantages} />}
+      {!!page.seoText && (
+        <div className="mb-12 seo" dangerouslySetInnerHTML={{ __html: page.seoText}}></div>
+      )}
+      {!!page.tags && !!page.tags.length && <SkillsBlock skills={page.tags} />}
     </div>
   );
 }

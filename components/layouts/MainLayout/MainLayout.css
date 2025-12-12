@@ -33,7 +33,7 @@
       "main"
       "footer";
     grid-template-columns: minmax(320px, 1fr);
-    /* grid-template-rows: auto 1fr auto; */
+    padding-inline: 24px;
   }
 
   .sidebar {
