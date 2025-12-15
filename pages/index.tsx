@@ -1,9 +1,12 @@
 import { API } from "@/api";
 import { withMainLayout } from "@/components/layouts/MainLayout/MainLayout";
 import Button from "@/components/UI/Button";
+import Input from "@/components/UI/Input";
 import Rating from "@/components/UI/Rating";
+import Search from "@/components/UI/Search";
 import Tag from "@/components/UI/Tag";
 import Text from "@/components/UI/Text";
+import Textarea from "@/components/UI/Textarea";
 import Title from "@/components/UI/Title";
 import { MenuItem } from "@/interfaces/menu.interface";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
@@ -47,6 +50,10 @@ const Home = ({ menu, firstCategory }: HomeProps) => {
           </li>
         ))}
       </ul>
+
+      {/* <Input placeholder="Test" />
+      <Textarea placeholder="Test" /> */}
+      {/* <Search /> */}
     </div>
   );
 }

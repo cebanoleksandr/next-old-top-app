@@ -11,7 +11,8 @@
   --red: #FC836D;
   --green: #1DC37E;
   --green-light: #C8F8E4;
-  --gray-dark: '#787D85';
+  --gray-dark: #787D85;
+  --gray-light: #EBEBEB;
 }
 
 body {
