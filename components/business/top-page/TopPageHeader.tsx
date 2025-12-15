@@ -21,7 +21,7 @@ const TopPageHeader: FC<IProps> = ({ page, products }) => {
   }
 
   return (
-    <div className="flex items-baseline justify-between gap-3 mb-5">
+    <div className="flex items-baseline justify-between gap-3 mb-7 flex-wrap">
       <div className="flex gap-2 items-baseline">
         <Title tag="h1">{page.title}</Title>
         <Tag color="gray" size="medium">{products.length}</Tag>

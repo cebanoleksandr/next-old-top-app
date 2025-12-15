@@ -8,8 +8,9 @@ import Tag from "@/components/UI/Tag";
 import "./ProductItem.css"
 import Button from "@/components/UI/Button";
 import { ChevronRightIcon } from "@heroicons/react/16/solid";
-import { priceRu } from "@/helpers/helpers";
+import { devlOfNum, priceRu } from "@/helpers/helpers";
 import Divider from "@/components/UI/Divider";
+import ProductFeatures from "./ProductFeatures";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
   product: ProductModel;
@@ -45,12 +46,14 @@ const ProductItem: FC<IProps> = ({ product, className }) => {
       </div>
       <div className="priceTitle font-light text-sm">Цена</div>
       <div className="creditTitle font-light text-sm">Кредит</div>
-      <div className="reviewCount font-light text-sm">{product.reviewCount} отзывов</div>
+      <div className="reviewCount font-light text-sm">{product.reviewCount} {devlOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}</div>
 
       <Divider className="hr" />
 
       <div className="description text-base mb-4">{product.description}</div>
-      <div className="features">FEATURES</div>
+
+      <ProductFeatures product={product} className="features" />
+
       <div className="advBlock">
         {!!product.advantages && (
           <div className="advantages border-l-[2px] border-[var(--green)] pl-4 mb-5">
@@ -66,7 +69,7 @@ const ProductItem: FC<IProps> = ({ product, className }) => {
         )}
       </div>
 
-      <Divider className="hr" />
+      <Divider className="hr2" />
 
       <div className="actions">
         <Button mode="primary">Узнать подробнее</Button>
