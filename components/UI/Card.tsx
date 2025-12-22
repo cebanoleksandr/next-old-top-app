@@ -10,7 +10,7 @@ const Card: FC<IProps> = ({ children, color = 'white', className, ...rest }) => 
   return (
     <div
       className={cn('shadow-sm rounded-sm', className, {
-        'bg-blue-100': color === 'blue',
+        'bg-blue-50': color === 'blue',
         'bg-white': color === 'white'
       })}
       { ...rest }
