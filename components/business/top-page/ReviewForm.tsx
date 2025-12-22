@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useState } from "react";
 import cn from "classnames";
 import Input from "@/components/UI/Input";
 import Rating from "@/components/UI/Rating";
@@ -7,6 +7,10 @@ import Button from "@/components/UI/Button";
 import "./ReviewForm.css";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import { Controller, useForm } from "react-hook-form";
+import axios from "axios";
+import { API } from "@/api";
+import { IReviewSentResponse } from "@/interfaces/page.interface";
+import Error from "next/error";
 
 export interface IReviewForm {
   name: string;
@@ -20,10 +24,26 @@ interface IProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const ReviewForm: FC<IProps> = ({ productId, className, ...rest }) => {
-  const { register, control, handleSubmit, formState: { errors } } = useForm<IReviewForm>();
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState<string>();
+  const { register, control, handleSubmit, formState: { errors }, reset } = useForm<IReviewForm>();
 
-  const onSubmit = (data: IReviewForm) => {
-    console.log('DATA: ', data);
+  const onSubmit = async (formData: IReviewForm) => {
+    try {
+      const { data } = await axios.post<IReviewSentResponse>(API.review.createDemo, {
+        ...formData,
+        productId,
+      });
+
+      if (data.message) {
+        setIsSuccess(true);
+        reset();
+      } else {
+        setError('Что-то пошло не так');
+      }
+    } catch (error: Error | any) {
+      setError(error?.message || 'Что-то пошло не так');
+    }
   }
 
   return (
@@ -79,11 +99,21 @@ const ReviewForm: FC<IProps> = ({ productId, className, ...rest }) => {
         </div>
       </div>
 
-      <div className="bg-[var(--green-light)] p-5 relative rounded-sm mt-5">
-        <div className="font-bold">Ваш отзыв отправлен</div>
-        <div className="">Спасибо, ваш отзыв будет опубликован после проверки.</div>
-        <XMarkIcon className="size-5 text-green-500 absolute top-5 right-5 cursor-pointer" />
-      </div>
+      {isSuccess && (
+        <div className="bg-[var(--green-light)] p-5 relative rounded-sm mt-5">
+          <div className="font-bold">Ваш отзыв отправлен</div>
+          <div className="">Спасибо, ваш отзыв будет опубликован после проверки.</div>
+          <XMarkIcon className="size-5 text-green-500 absolute top-5 right-5 cursor-pointer" onClick={() => setIsSuccess(false)} />
+        </div>
+      )}
+
+      {!!error && (
+        <div className="bg-[var(--red-light)] p-5 relative rounded-sm mt-5">
+          <div className="font-bold">Что-то пошло не так...</div>
+          <div className="">{error}</div>
+          <XMarkIcon className="size-5 text-red-700 absolute top-5 right-5 cursor-pointer" onClick={() => setError(undefined)} />
+        </div>
+      )}
     </form>
   )
 }

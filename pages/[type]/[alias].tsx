@@ -30,7 +30,7 @@ const TopPage: FC<TopPageProps> = ({ firstCategory, page, products }) => {
       return products.sort((a,b) => a.initialRating - b.initialRating);
     }
     return products.sort((a,b) => b.price - a.price);
-  }, [sort]);
+  }, [sort, products]);
 
   return (
     <div className="mt-10">

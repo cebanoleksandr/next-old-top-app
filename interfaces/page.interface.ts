@@ -37,3 +37,7 @@ export interface TopPageModal {
   metaTitle: string;
   metaDescription: string;
 }
+
+export interface IReviewSentResponse {
+  message: string;
+}

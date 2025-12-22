@@ -1,5 +1,5 @@
 import { ProductModel } from "@/interfaces/product.interface";
-import { FC, HTMLAttributes, useState } from "react";
+import { FC, HTMLAttributes, MouseEvent, useRef, useState } from "react";
 import cn from "classnames";
 import Card from "@/components/UI/Card";
 import Image from "next/image";
@@ -17,12 +17,24 @@ interface IProps extends HTMLAttributes<HTMLDivElement> {
   product: ProductModel;
 }
 
-const ProductItem: FC<IProps> = ({ product, className }) => {
+const ProductItem: FC<IProps> = ({ product, className, ...rest }) => {
   const [isReviewOpened, setIsReviewOpened] = useState(false);
 
+  const reviewRef = useRef<HTMLDivElement>(null);
+
+  const scrollToReview = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    setIsReviewOpened(true);
+    reviewRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+    reviewRef.current?.focus();
+  }
+
   return (
-    <>
-      <Card className={cn(className, 'product mb-7 p-8')}>
+    <div className={cn('product-item', className)} {...rest}>
+      <Card className={cn('product mb-7 p-8')}>
         <div className="logo">
           <Image
             src={product.image}
@@ -50,7 +62,12 @@ const ProductItem: FC<IProps> = ({ product, className }) => {
         </div>
         <div className="priceTitle font-light text-sm">Цена</div>
         <div className="creditTitle font-light text-sm">Кредит</div>
-        <div className="reviewCount font-light text-sm">{product.reviewCount} {devlOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}</div>
+
+        <a href="#ref" onClick={scrollToReview} className="reviewCount text-[var(--primary)]">
+          <div className="font-light text-sm">
+            {product.reviewCount} {devlOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}
+          </div>
+        </a>
 
         <Divider className="hr" />
 
@@ -92,8 +109,12 @@ const ProductItem: FC<IProps> = ({ product, className }) => {
         </div>
       </Card>
 
-      <ProductReview isOpen={isReviewOpened} product={product} />
-    </>
+      <ProductReview
+        isOpen={isReviewOpened}
+        product={product}
+        ref={reviewRef}
+      />
+    </div>
   )
 }
 

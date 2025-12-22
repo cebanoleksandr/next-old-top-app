@@ -1,5 +1,5 @@
 import Card from "@/components/UI/Card";
-import { FC, Fragment } from "react";
+import { FC, forwardRef, Fragment } from "react";
 import cn from "classnames";
 import Review from "./Review";
 import { ProductModel } from "@/interfaces/product.interface";
@@ -12,10 +12,11 @@ interface IProps {
 
 }
 
-const ProductReview: FC<IProps> = ({ isOpen, product }) => {
+const ProductReview = forwardRef<HTMLDivElement, IProps>(({ isOpen, product }, ref) => {
   return (
     <Card
-      color="blue" 
+      ref={ref}
+      color="blue"
       className={cn('mb-7 -mt-8', {
         'overflow-hidden max-h-0 p-0': !isOpen,
         'p-7': isOpen
@@ -33,6 +34,6 @@ const ProductReview: FC<IProps> = ({ isOpen, product }) => {
       <ReviewForm productId={product._id} />
     </Card>
   )
-}
+})
 
 export default ProductReview;

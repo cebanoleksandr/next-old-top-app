@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, ReactNode } from "react";
+import { FC, forwardRef, HTMLAttributes, ReactNode } from "react";
 import cn from "classnames";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
@@ -6,18 +6,19 @@ interface IProps extends HTMLAttributes<HTMLDivElement> {
   color?: 'white' | 'blue';
 }
 
-const Card: FC<IProps> = ({ children, color = 'white', className, ...rest }) => {
+const Card = forwardRef<HTMLDivElement, IProps>(({ children, color = 'white', className, ...rest }, ref) => {
   return (
     <div
       className={cn('shadow-sm rounded-sm', className, {
         'bg-blue-50': color === 'blue',
         'bg-white': color === 'white'
       })}
+      ref={ref}
       { ...rest }
     >
       {children}
     </div>
   )
-}
+})
 
 export default Card;
