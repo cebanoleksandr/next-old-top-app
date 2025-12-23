@@ -32,33 +32,31 @@ const variants: Variants = {
   }
 };
 
-const ProductReview = forwardRef<HTMLDivElement, IProps>(
-  ({ isOpen, product }, ref) => (
-    <motion.div
+const ProductReview = forwardRef<HTMLDivElement, IProps>(({ isOpen, product }, ref) => (
+  <motion.div
+    ref={ref}
+    variants={variants}
+    initial="closed"
+    animate={isOpen ? "open" : "closed"}
+    className="mb-7 overflow-hidden -mt-8 shadow-sm"
+  >
+    <Card
+      color="blue"
+      className={cn('p-7 overflow-hidden')}
       ref={ref}
-      variants={variants}
-      initial="closed"
-      animate={isOpen ? "open" : "closed"}
-      className="mb-7 overflow-hidden -mt-8 shadow-sm"
     >
-      <Card
-        color="blue"
-        className={cn('p-7 overflow-hidden')}
-        ref={ref}
-      >
-        <div>
-          {product.reviews.map(review => (
-            <Fragment key={review._id}>
-              <Review review={review} />
-              <Divider />
-            </Fragment>
-          ))}
-        </div>
+      <div>
+        {product.reviews.map(review => (
+          <Fragment key={review._id}>
+            <Review review={review} />
+            <Divider />
+          </Fragment>
+        ))}
+      </div>
 
-        <ReviewForm productId={product._id} />
-      </Card>
-    </motion.div>
-  )
-);
+      <ReviewForm productId={product._id} />
+    </Card>
+  </motion.div>
+));
 
 export default ProductReview;
