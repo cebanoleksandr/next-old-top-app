@@ -1,5 +1,5 @@
 import { ProductModel } from "@/interfaces/product.interface";
-import { FC, HTMLAttributes, MouseEvent, useRef, useState } from "react";
+import { FC, forwardRef, HTMLAttributes, MouseEvent, useRef, useState } from "react";
 import cn from "classnames";
 import Card from "@/components/UI/Card";
 import Image from "next/image";
@@ -12,12 +12,13 @@ import { devlOfNum, priceRu } from "@/helpers/helpers";
 import Divider from "@/components/UI/Divider";
 import ProductFeatures from "./ProductFeatures";
 import ProductReview from "./ProductReview";
+import { motion } from "framer-motion";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
   product: ProductModel;
 }
 
-const ProductItem: FC<IProps> = ({ product, className, ...rest }) => {
+const ProductItem = motion(forwardRef<HTMLDivElement, IProps>(({ product, className, ...rest }, ref) => {
   const [isReviewOpened, setIsReviewOpened] = useState(false);
 
   const reviewRef = useRef<HTMLDivElement>(null);
@@ -33,7 +34,11 @@ const ProductItem: FC<IProps> = ({ product, className, ...rest }) => {
   }
 
   return (
-    <div className={cn('product-item', className)} {...rest}>
+    <div
+      className={cn('product-item', className)} 
+      {...rest}
+      ref={ref}
+    >
       <Card className={cn('product mb-7 p-8')}>
         <div className="logo">
           <Image
@@ -116,6 +121,6 @@ const ProductItem: FC<IProps> = ({ product, className, ...rest }) => {
       />
     </div>
   )
-}
+}));
 
 export default ProductItem;
