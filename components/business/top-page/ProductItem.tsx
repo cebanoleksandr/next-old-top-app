@@ -13,6 +13,7 @@ import Divider from "@/components/UI/Divider";
 import ProductFeatures from "./ProductFeatures";
 import ProductReview from "./ProductReview";
 import { motion } from "framer-motion";
+import { tr } from "date-fns/locale";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
   product: ProductModel;
