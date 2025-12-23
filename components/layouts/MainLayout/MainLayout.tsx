@@ -3,6 +3,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import Sidebar from "../Sidebar";
 import "./MainLayout.css";
+import Up from "@/components/UI/Up";
 
 interface IProps {
   children: ReactNode;
@@ -15,6 +16,7 @@ const MainLayout: FC<IProps> = ({ children }) => {
       <Sidebar className="sidebar" />
       <main className="main">{children}</main>
       <Footer className="footer" />
+      <Up />
     </div>
   );
 };
