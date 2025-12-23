@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import cn from "classnames";
 import { usePathname } from "next/navigation";
 import { firstLevelMenu } from "@/helpers/helpers";
+import { motion } from "framer-motion";
 
 const Menu = () => {
   const { menu, firstCategory } = useAppSelector(state => state.menu);
@@ -34,6 +35,30 @@ const Menu = () => {
   useEffect(() => {
     fetchMenu();
   }, []);
+
+  const variants = {
+    visible: {
+      marginBottom: 20,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.1,
+      }
+    },
+    hidden: {
+      marginBottom: 0,
+    },
+  };
+
+  const variantsChildren = {
+    visible: {
+      opacity: 1,
+      height: 'auto',
+    },
+    hidden: {
+      opacity: 0,
+      height: 0,
+    },
+  };
 
   const buildFirstLevel = () => {
     return (
@@ -73,13 +98,15 @@ const Menu = () => {
                 {m._id.secondCategory}
               </div>
 
-              <div
-                className={cn('block mb-2 text-[var(--gray-dark)] text-sm font-medium', {
-                  'hidden': !newM.isOpened
-                })}
+              <motion.div
+                className={cn('block mb-2 text-[var(--gray-dark)] text-sm font-medium')}
+                layout
+                variants={variants}
+                initial={newM.isOpened ? 'visible' : 'hidden'}
+                animate={newM.isOpened ? 'visible' : 'hidden'}
               >
                 {buildThirdLevel(m.pages, menuItem.route)}
-              </div>
+              </motion.div>
             </div>
           )
         })}
@@ -91,15 +118,19 @@ const Menu = () => {
     return (
       <div className="">
         {pages.map(page => (
-          <Link
-            key={page._id} 
-            href={`/${route}/${page.alias}`}
-            className={cn('block hover:text-[var(--primary)] transition duration-300', {
-              'text-[var(--primary)]': `/${route}/${page.alias}` === pathname
-            })}
+          <motion.div
+            key={page._id}
+            variants={variantsChildren}
           >
-            {page.category}
-          </Link>
+            <Link
+              href={`/${route}/${page.alias}`}
+              className={cn('block hover:text-[var(--primary)] transition duration-300', {
+                'text-[var(--primary)]': `/${route}/${page.alias}` === pathname
+              })}
+            >
+              {page.category}
+            </Link>
+          </motion.div>
         ))}
       </div>
     );
