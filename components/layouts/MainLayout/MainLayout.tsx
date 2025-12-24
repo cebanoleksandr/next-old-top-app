@@ -12,7 +12,9 @@ interface IProps {
 const MainLayout: FC<IProps> = ({ children }) => {
   return (
     <div className="wrapper">
-      <Header className="header md:hidden" />
+      <div className="md:hidden">
+        <Header className="header" />
+      </div>
       <Sidebar className="sidebar" />
       <main className="main">{children}</main>
       <Footer className="footer" />

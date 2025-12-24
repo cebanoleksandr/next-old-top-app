@@ -21,3 +21,15 @@ body {
   color: var(--black);
   background: #F5F6F8;
 }
+
+.scrollbar-md {
+  &::-webkit-scrollbar {
+    width: 8px;
+    cursor: default;
+  }
+   
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #DEDFE0;
+  }
+}
