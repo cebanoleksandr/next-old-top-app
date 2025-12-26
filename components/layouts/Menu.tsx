@@ -5,7 +5,7 @@ import { FirstLevelMenuItem, PageItem } from "@/interfaces/menu.interface";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setMenuAC } from "@/store/menuSlice";
 import Link from "next/link";
-import { useEffect } from "react";
+import { KeyboardEvent, useEffect } from "react";
 import cn from "classnames";
 import { usePathname } from "next/navigation";
 import { firstLevelMenu } from "@/helpers/helpers";
@@ -60,6 +60,13 @@ const Menu = () => {
     },
   };
 
+  const openSecondLevelKey = (key: KeyboardEvent, secondCategory: string) => {
+    if (key.key === 'Enter' || key.key === ' ') {
+      key.preventDefault();
+      openSecondLevel(secondCategory);
+    }
+  }
+
   const buildFirstLevel = () => {
     return (
       <>
@@ -94,7 +101,11 @@ const Menu = () => {
 
           return (
             <div key={m._id.secondCategory} className="mb-5">
-              <div className='mb-2 cursor-pointer uppercase text-[var(--gray-dark)] text-xs font-light' onClick={() => openSecondLevel(m._id.secondCategory)}>
+              <div
+                tabIndex={0}
+                onKeyDown={(key: KeyboardEvent) => openSecondLevelKey(key, m._id.secondCategory)}
+                className='mb-2 cursor-pointer uppercase text-[var(--gray-dark)] text-xs font-light' onClick={() => openSecondLevel(m._id.secondCategory)}
+              >
                 {m._id.secondCategory}
               </div>
 
@@ -105,7 +116,7 @@ const Menu = () => {
                 initial={newM.isOpened ? 'visible' : 'hidden'}
                 animate={newM.isOpened ? 'visible' : 'hidden'}
               >
-                {buildThirdLevel(m.pages, menuItem.route)}
+                {buildThirdLevel(m.pages, menuItem.route, !!newM.isOpened)}
               </motion.div>
             </div>
           )
@@ -114,7 +125,7 @@ const Menu = () => {
     );
   }
 
-  const buildThirdLevel = (pages: PageItem[], route: string) => {
+  const buildThirdLevel = (pages: PageItem[], route: string, isOpened: boolean) => {
     return (
       <div className="">
         {pages.map(page => (
@@ -127,6 +138,7 @@ const Menu = () => {
               className={cn('block hover:text-[var(--primary)] transition duration-300', {
                 'text-[var(--primary)]': `/${route}/${page.alias}` === pathname
               })}
+              tabIndex={isOpened ? 0 : -1}
             >
               {page.category}
             </Link>
