@@ -39,6 +39,7 @@ const ProductReview = forwardRef<HTMLDivElement, IProps>(({ isOpen, product }, r
     initial="closed"
     animate={isOpen ? "open" : "closed"}
     className="mb-7 overflow-hidden -mt-8 shadow-sm"
+    tabIndex={isOpen ? 0 : -1}
   >
     <Card
       color="blue"
@@ -54,7 +55,7 @@ const ProductReview = forwardRef<HTMLDivElement, IProps>(({ isOpen, product }, r
         ))}
       </div>
 
-      <ReviewForm productId={product._id} />
+      <ReviewForm productId={product._id} isOpen={isOpen} />
     </Card>
   </motion.div>
 ));
