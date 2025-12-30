@@ -13,16 +13,27 @@ interface IProps extends HTMLAttributes<HTMLDivElement> {
 const Sort: FC<IProps> = ({ sort, setSort, className, ...rest }) => {
   return (
     <div className={cn('flex items-center gap-3', className)} { ...rest }>
+      <div className="hidden" id="sort-label">Сортировка</div>
+
       <button
         className="flex items-center gap-1 cursor-pointer" 
         onClick={() => setSort(SortEnum.Rating)}
         tabIndex={0}
       >
         {sort === SortEnum.Rating && <Image src={sortIcon} alt="" />}
-        <Text size="medium" className={cn('', {
-          'text-[var(--primary)]': sort === SortEnum.Rating,
-          'text-[var(--black)]': sort !== SortEnum.Price,
-        })}>По рейтингу</Text>
+
+        <Text 
+          size="medium" 
+          className={cn('', {
+            'text-[var(--primary)]': sort === SortEnum.Rating,
+            'text-[var(--black)]': sort !== SortEnum.Price,
+          })}
+          aria-selected={sort === SortEnum.Rating}
+          aria-labelledby="sort-label rating"
+          id="rating"
+        >
+          По рейтингу
+        </Text>
       </button>
 
       <button
@@ -31,10 +42,19 @@ const Sort: FC<IProps> = ({ sort, setSort, className, ...rest }) => {
         tabIndex={0}
       >
         {sort === SortEnum.Price && <Image src={sortIcon} alt="" />}
-        <Text size="medium" className={cn('', {
-          'text-[var(--primary)]': sort === SortEnum.Price,
-          'text-[var(--black)]': sort !== SortEnum.Rating,
-        })}>По цене</Text>
+
+        <Text
+          size="medium"
+          className={cn('', {
+            'text-[var(--primary)]': sort === SortEnum.Price,
+            'text-[var(--black)]': sort !== SortEnum.Rating,
+          })}
+          aria-selected={sort === SortEnum.Price}
+          aria-labelledby="sort-label price"
+          id="price"
+        >
+          По цене
+        </Text>
       </button>
     </div>
   )

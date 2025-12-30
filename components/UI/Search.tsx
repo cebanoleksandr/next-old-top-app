@@ -41,6 +41,7 @@ const Search: FC<IProps> = ({ className, ...rest }) => {
         mode="primary"
         className="absolute top-1 right-1 size-8"
         onClick={goToSearch}
+        aria-label="Искать по сайту"
       >
         <MagnifyingGlassIcon className="size-5 -mx-1.5 -my-1" />
       </Button>
