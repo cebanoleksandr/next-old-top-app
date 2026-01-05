@@ -9,10 +9,11 @@ import { KeyboardEvent, useEffect } from "react";
 import cn from "classnames";
 import { usePathname } from "next/navigation";
 import { firstLevelMenu } from "@/helpers/helpers";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const Menu = () => {
   const { menu, firstCategory } = useAppSelector(state => state.menu);
+  const shouldReduceMotion = useReducedMotion();
   
   const dispatch = useAppDispatch();
   const pathname = usePathname();
@@ -39,7 +40,7 @@ const Menu = () => {
   const variants = {
     visible: {
       marginBottom: 20,
-      transition: {
+      transition: shouldReduceMotion ? {} : {
         when: "beforeChildren",
         staggerChildren: 0.1,
       }

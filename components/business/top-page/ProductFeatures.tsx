@@ -1,7 +1,6 @@
 import { ProductModel } from "@/interfaces/product.interface";
 import { FC, HTMLAttributes } from "react";
 import cn from "classnames";
-import "./ProductFeatures.css";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
   product: ProductModel;

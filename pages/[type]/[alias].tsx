@@ -15,6 +15,7 @@ import { GetStaticPropsContext } from "next";
 import { FC, useMemo } from "react";
 import { useAppSelector } from "@/store/hooks";
 import { SortEnum } from "@/store/sortSlice";
+import Head from "next/head";
 
 interface TopPageProps extends Record<string, unknown> {
   firstCategory: TopLevelCategory;
@@ -27,21 +28,29 @@ const TopPage: FC<TopPageProps> = ({ firstCategory, page, products }) => {
 
   const sortedProducts = useMemo(() => {
     if (sort === SortEnum.Rating) {
-      return products.sort((a,b) => a.initialRating - b.initialRating);
+      return products?.sort((a,b) => a.initialRating - b.initialRating);
     }
-    return products.sort((a,b) => b.price - a.price);
+    return products?.sort((a,b) => b.price - a.price);
   }, [sort, products]);
 
   return (
     <div className="mt-10">
+      <Head>
+        <title>{page?.metaTitle}</title>
+        <meta name="description" content={page?.metaDescription} />
+        <meta property="og:title" content={page?.metaTitle} />
+        <meta property="og:description" content={page?.metaDescription} />
+        <meta property="og:type" content="article" />
+      </Head>
+
       <TopPageHeader page={page} products={sortedProducts} />
       <ProductsList products={sortedProducts} />
       {firstCategory === TopLevelCategory.Courses && <VacanciesBlock page={page} />}
-      {!!page.advantages && !!page.advantages.length && <AdvantagesBlock advantages={page.advantages} />}
-      {!!page.seoText && (
+      {!!page?.advantages && !!page.advantages.length && <AdvantagesBlock advantages={page.advantages} />}
+      {!!page?.seoText && (
         <div className="mb-12 seo" dangerouslySetInnerHTML={{ __html: page.seoText}}></div>
       )}
-      {!!page.tags && !!page.tags.length && <SkillsBlock skills={page.tags} />}
+      {!!page?.tags && !!page.tags.length && <SkillsBlock skills={page.tags} />}
     </div>
   );
 }

@@ -2,7 +2,6 @@ import { FC, KeyboardEvent, ReactNode, useRef, useState } from "react";
 import Header from "../Header";
 import Footer from "../Footer";
 import Sidebar from "../Sidebar";
-import "./MainLayout.css";
 import Up from "@/components/UI/Up";
 import cn from "classnames";
 

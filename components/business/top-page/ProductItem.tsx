@@ -5,7 +5,6 @@ import Card from "@/components/UI/Card";
 import Image from "next/image";
 import Rating from "@/components/UI/Rating";
 import Tag from "@/components/UI/Tag";
-import "./ProductItem.css"
 import Button from "@/components/UI/Button";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
 import { devlOfNum, priceRu } from "@/helpers/helpers";
@@ -13,7 +12,6 @@ import Divider from "@/components/UI/Divider";
 import ProductFeatures from "./ProductFeatures";
 import ProductReview from "./ProductReview";
 import { motion } from "framer-motion";
-import { tr } from "date-fns/locale";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
   product: ProductModel;

@@ -6,7 +6,6 @@ import cn from "classnames";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import Rating from "@/components/UI/Rating";
-import "./Review.css";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
   review: ReviewModel;

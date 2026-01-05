@@ -34,3 +34,321 @@ body {
     background: #DEDFE0;
   }
 }
+
+.review {
+  display: grid;
+  grid-template-columns: [start] auto 1fr auto auto [end];
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.review-date {
+  margin-right: 10px;
+}
+
+.review-description {
+  grid-column: start / end;
+}
+
+@media screen and (max-width: 640px) {
+  .review {
+    grid-template-columns: [start] 28px [titleStart] auto [dateEnd] 1fr [end];
+  }
+
+  .review-title {
+    grid-column: titleStart / end;
+  }
+
+  .review-date {
+    grid-column: start / dateEnd;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .review-rating {
+    grid-column: start / end;
+  }
+
+  .review-date {
+    grid-column: start / end;
+  }
+}
+
+.review-form {
+  display: grid;
+  grid-template-columns: [start] auto 1fr auto [end];
+  gap: 20px 30px;
+  align-items: center;
+}
+
+.review-form-title {
+  justify-self: left;
+}
+
+.review-form-description, .review-form-submit {
+  grid-column: start / end;
+}
+
+@media (max-width: 1100px) {
+  .review-form {
+    grid-template-columns: [start] 1fr 1fr [end];
+  }
+
+  .review-form-rating {
+    grid-column: start / end;
+  }
+
+  .review-form-title {
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 640px) {
+  .review-form {
+    grid-template-columns: [start] 1fr [end];
+  }
+}
+
+.wrapper {
+  display: grid;
+  grid-template-areas:
+    ". header header ."
+    ". sidebar main ."
+    "footer footer footer footer";
+  grid-template-columns: auto 230px minmax(320px, 1200px) auto;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  gap: 0 30px;
+}
+
+.header {
+  grid-area: header;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.main {
+  grid-area: main;
+}
+
+.footer {
+  grid-area: footer;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+    grid-template-columns: minmax(320px, 1fr);
+    padding-inline: 24px;
+    gap: 0 10px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+}
+
+.product {
+  display: grid;
+  grid-template-columns: [start] 70px [logoend] 30px [titlestart] calc(50% - 100px) [middle] 1fr [pricestart] auto [priceend] 40px [creditstart] auto [creditend] 40px [ratestart] auto [end];
+}
+
+.logo {
+  grid-column: start / logoend;
+  grid-row: 1 / span 2;
+}
+
+.title, .tags {
+  grid-column: titlestart / middle;
+}
+
+.price, .priceTitle {
+  grid-column: pricestart / priceend;
+}
+
+.credit, .creditTitle {
+  grid-column: creditstart / creditend;
+}
+
+.rating, .reviewCount {
+  grid-column: ratestart / end;
+}
+
+.hr, .hr2, .description, .actions {
+  grid-column: start / end;
+}
+
+.features {
+  grid-column: start / middle;
+}
+
+.advBlock {
+  grid-column: middle / end;
+}
+
+@media screen and (max-width: 1320px) {
+  .product {
+    display: grid;
+    grid-template-columns: 70px 30px auto 40px auto 40px 1fr;
+    grid-template-areas: 
+      "logo . title title title title title"
+      "logo . tags tags tags tags tags"
+      "price price price . credit . rating"
+      "priceTitle priceTitle priceTitle . creditTitle . reviewCount"
+      "hr hr hr hr hr hr hr"
+      "description description description description description description description"
+      "features features features features features features features"
+      "advBlock advBlock advBlock advBlock advBlock advBlock advBlock"
+      "hr2 hr2 hr2 hr2 hr2 hr2 hr2"
+      "actions actions actions actions actions actions actions"
+    ;
+  }
+
+  .logo {
+    grid-area: logo;
+    margin-bottom: 20px;
+  }
+
+  .title {
+    grid-area: title;
+  }
+
+  .tags {
+    grid-area: tags;
+    margin-bottom: 20px;
+  }
+
+  .price {
+    grid-area: price;
+  }
+
+  .credit {
+    grid-area: credit;
+  }
+
+  .rating {
+    grid-area: rating;
+  }
+
+  .priceTitle {
+    grid-area: priceTitle;
+  }
+
+  .creditTitle {
+    grid-area: creditTitle;
+  }
+
+  .reviewCount {
+    grid-area: reviewCount;
+  }
+
+  .hr {
+    grid-area: hr;
+  }
+
+  .hr2 {
+    grid-area: hr2;
+  }
+
+  .description {
+    grid-area: description;
+  }
+
+  .features {
+    grid-area: features;
+    margin-bottom: 20px;
+  }
+
+  .advBlock {
+    grid-area: advBlock;
+  }
+
+  .actions {
+    grid-area: actions;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .product {
+    display: grid;
+    grid-template-columns: 70px 30px 1fr;
+    grid-template-areas: 
+      "logo . title"
+      "logo . tags"
+      "priceTitle priceTitle price"
+      "creditTitle creditTitle credit"
+      "reviewCount reviewCount rating"
+      "hr hr hr"
+      "description description description"
+      "features features features"
+      "advBlock advBlock advBlock"
+      "hr2 hr2 hr2"
+      "actions actions actions"
+    ;
+  }
+
+  .price {
+    margin-bottom: 10px;
+  }
+
+  .credit {
+    margin-bottom: 10px;
+  }
+
+  .rating {
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .product {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "logo"
+      "tags"
+      "price"
+      "priceTitle"
+      "credit"
+      "creditTitle"
+      "rating"
+      "reviewCount"
+      "hr"
+      "description"
+      "features"
+      "advBlock"
+      "hr2"
+      "actions"
+    ;
+  }
+}
+
+.characteristics {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  padding-right: 60px;
+  font-size: 16px;
+  line-height: 32px;
+  align-items: baseline;
+}
+
+.characteristicsName {
+  font-weight: bold;
+}
+
+.characteristicsDots {
+  border-bottom: 1px dashed var(--gray-light);
+}
+
+.characteristicsValue {
+  margin-bottom: 5px;
+  text-align: end;
+}

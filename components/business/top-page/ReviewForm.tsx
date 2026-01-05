@@ -4,7 +4,6 @@ import Input from "@/components/UI/Input";
 import Rating from "@/components/UI/Rating";
 import Textarea from "@/components/UI/Textarea";
 import Button from "@/components/UI/Button";
-import "./ReviewForm.css";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
