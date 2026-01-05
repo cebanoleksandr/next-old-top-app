@@ -1,0 +1,8 @@
+version: "27"
+services:
+  app:
+    image: top-app-next-old
+    container_name: top-app-next-old
+    restart: always
+    ports:
+    - 3000:3000
