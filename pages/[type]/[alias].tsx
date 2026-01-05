@@ -5,7 +5,6 @@ import SkillsBlock from "@/components/business/top-page/SkillsBlock";
 import TopPageHeader from "@/components/business/top-page/TopPageHeader";
 import VacanciesBlock from "@/components/business/top-page/VacanciesBlock";
 import { withMainLayout } from "@/components/layouts/MainLayout/MainLayout";
-import "./style.css";
 import { firstLevelMenu } from "@/helpers/helpers";
 import { MenuItem } from "@/interfaces/menu.interface";
 import { TopLevelCategory, TopPageModal } from "@/interfaces/page.interface";
